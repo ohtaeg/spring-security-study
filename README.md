@@ -56,22 +56,70 @@ study
 - `.` 구분자로 3가지의 문자열로 구성되어 있다.
     - xxxx.yyyy.zzzz
     - xxxx - `헤더 (Header)`
-    - yyyy - `내용 (Payload)`
+    - yyyy - `정보 (Payload)`
     - zzzz - `서명 (Signature)`
+    
+<br>
+
 - `헤더 (Header)` : typ, alg 라는 두가지 정보를 가진다.
     - typ : 토큰 타입, JWT
     - alg : 해싱 알고리즘, 주로 sha256이나 RSA 방식을 채택한다. 이 알고리즘은 `서명 (Signature)`에서도 사용한다.
     - JWT 토큰을 만들때는 담당 라이브러리가 알아서 Base64 인/디코딩 + 해싱작업을 해준다.
-    Base64로 인코딩하면서 공백 및 엔터들이 제거가 된다.
+    - Base64로 인코딩하면서 공백 및 엔터들이 제거가 된다. 인코딩후 맨뒤에 == 같은 문자가 붙는데 이런 문자를 `padding 문자` 라고 한다.
+    - `padding 문자`는 url-safe 하지 않기 때문에 지우고 사용해야 한다.
     <pre>
         <code>{</code>
         <code>  "typ" : "JWT"</code>
         <code>  , "alg" : "HS256"</code>
         <code>}</code>
     </pre>
-- `정보 (Payload)` : 자체적인 정보를 가지는 부분으로써 정보들을 `클레임 (Claim)`으로 관리 한다.
-    - `클레임 (Claim)` : 객체나 데이터에 대한 정의, 표현 나타내며, key-value 한쌍으로 이루어져 있으며 3가지 유형이 있다.
+       
+<br>
+ 
+- `정보 (Payload)` : 토큰의 바디로써, 자체적인 정보를 가지는 부분이다. 정보들을 `클레임 (Claim)`으로 관리 한다.
+    - `클레임 (Claim)` : 객체나 데이터에 대한 정의, 표현을 나타내며, key-value 한쌍으로 3가지 유형으로 set을 이루고 있다.
         - `등록된 클레임 (Registered Claim)`
         - `공개 클레임 (Public Claim)`
         - `비공개 클레임 (Private Claim)`
-
+    <pre>
+        <code>
+            {
+                "iss": "test",
+                "nbf": "1455270000000",
+                "exp": "1485270000000",
+                "http://localhost:8080/api/user": true,
+                "userId": "1",
+                "username": "ohtaeg"
+            }
+            /*
+            3개의 등록된 클레임
+            1개의 공개 클레임
+            2개의 비공개 클레임
+            */
+        </code>
+    </pre>
+    - `등록된 클레임 (Registered Claim)`
+        - 토큰에 대한 정보를 담기위해 이미 이름이 정해잔 클레임
+        - iss (issuer) : 토큰 발급자
+        - sub (subject) : 토큰 주제
+        - aud (audience) : 토큰을 사용할 수신자
+        - exp (expire) : 토큰 만료 시간
+        - nbf (not before) : 해당 날짜전까지 해당 토큰은 처리 불가
+        - iat (issued at) : 토큰이 발급된 시간
+        - jti : `JWT`의 ID, 중복처리 방지를 위해 일회용 토큰에 주로 사용
+        - `등록된 클레임`의 사용은 선택적이다.
+    
+    - `공개 클레임 (Public Claim)`
+        - 충돌이 방지를 위해 이름을 가지는데 이름은 URI 형식으로 되어있다.
+        <pre><code>{ "http://localhost:8080/api/user/1" : true }</code></pre> 
+    
+    - `비공개 클레임 (Private Claim)`
+        - 클라이언트 - 서버간에 사용되는 클레임.
+        <pre><code>{ "userId" : "1", "userName : "ohtaeg" }</code></pre>
+          
+<br>
+  
+- `서명 (Signature)`
+    - JWT의 마지막 부분으로써, `헤더 (Header)`의 인코딩 값 + `정보 (Payload)`의 인코딩 값을 합친 후
+    헤더에서 명시한 알고리즘을 이용하여 비밀키로 생성한다.
+    - 비밀키를 base64 형태로 변환 (문자열 인코딩이 아닌 포맷 변환)만 해주면 `JWT`가 만들어진다.
