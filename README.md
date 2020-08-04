@@ -9,4 +9,4 @@ study
 
 ### I learned
 - [JWT](/docs/JWT.md)
-- [PASSWORD_ENCRYPTION](/docs/PasswordEncryption.md)
+- [PASSWORD_ENCRYPTION](/docs/BCrypt.md)
