@@ -1,6 +1,7 @@
 package me.ohtaeg.securitystudy.config;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -18,4 +19,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .anyRequest().authenticated() // 나머지 요청들은 모두 인증하겠다는 의미
         ;
     }
+
+    /**
+     * h2 콘솔 하위 모든 요청들과 파비콘 관련 요청은 Spring Security 인증을 수행하지 않도록 오버라이드
+     * h2-console/**, favicon 에 대한 요청은 Security filter chain 을 적용할 필요가 전혀 없는 요청이여서
+     * Spring Security 로직을 수행하지 않고 직접 접근이 가능하도록 ignoring
+     */
+    @Override
+    public void configure(final WebSecurity web) throws Exception {
+        web
+           .ignoring()
+           .antMatchers(
+                   "/h2-console/**"
+                   , "favicon.ico")
+        ;
+    }
 }
+
