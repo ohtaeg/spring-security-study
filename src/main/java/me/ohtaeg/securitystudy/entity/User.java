@@ -31,7 +31,7 @@ public class User {
     @Column(name = "nickname", length = 10)
     private String nickname;
 
-    @JsonIgnore
+    @JsonIgnore // 서버에서 Json 응답을 생성할때 해당 필드는 ignore 하겠다는 의미
     @Column(name = "activated")
     private boolean activated;
 
