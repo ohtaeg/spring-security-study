@@ -56,6 +56,7 @@ public class JwtFilter extends GenericFilterBean {
             return bearerToken.substring(7); //Bearer 를 제외한 나머지 값들을 추출
         }
 
-        throw new IllegalArgumentException("잘못된 토큰");
+        // throw new IllegalArgumentException("잘못된 토큰");
+        return null;
     }
 }

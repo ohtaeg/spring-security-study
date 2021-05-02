@@ -1,4 +1,4 @@
-package me.ohtaeg.securitystudy.jwt;
+package me.ohtaeg.securitystudy.jwt.exception;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;

@@ -1,4 +1,4 @@
-package me.ohtaeg.securitystudy.jwt;
+package me.ohtaeg.securitystudy.jwt.exception;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

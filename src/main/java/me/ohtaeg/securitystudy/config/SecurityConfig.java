@@ -1,7 +1,7 @@
 package me.ohtaeg.securitystudy.config;
 
-import me.ohtaeg.securitystudy.jwt.JwtAccessDeniedHandler;
-import me.ohtaeg.securitystudy.jwt.JwtAuthenticationEntryPoint;
+import me.ohtaeg.securitystudy.jwt.exception.JwtAccessDeniedHandler;
+import me.ohtaeg.securitystudy.jwt.exception.JwtAuthenticationEntryPoint;
 import me.ohtaeg.securitystudy.jwt.JwtProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
