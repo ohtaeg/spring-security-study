@@ -4,6 +4,7 @@ import me.ohtaeg.securitystudy.jwt.exception.JwtAccessDeniedHandler;
 import me.ohtaeg.securitystudy.jwt.exception.JwtAuthenticationEntryPoint;
 import me.ohtaeg.securitystudy.jwt.JwtProvider;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -78,7 +79,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/apis/hello").permitAll() // "path" 에 대한 요청은 인증없이 접근을 허용하겠다는 의미
                 // 로그인 api 와 회원가입 api 는 토큰이 없는 상태에서 요청이 들어오기 때문에 토큰 없이 접근을 허용
                 .antMatchers("/apis/authenticate").permitAll() // 로그인 api
-                .antMatchers("/apis/signup").permitAll() // 회원가입 api
+                .antMatchers(HttpMethod.POST, "/apis/users").permitAll() // 회원가입 api
                 .anyRequest().authenticated() // 나머지 요청들은 모두 인증하겠다는 의미
 
                 .and()

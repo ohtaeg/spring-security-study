@@ -107,30 +107,10 @@ public class JwtProvider {
      * @return
      */
     private Claims getClaims(final String token) {
-        validateToken(token);
         return Jwts.parserBuilder()
-                   .setSigningKey(key)
-                   .build()
-                   .parseClaimsJws(token)
-                   .getBody();
-    }
-
-    /**
-     * 토큰의 유효성 검증을 수행하는 validateToken 메서드
-     */
-    private boolean validateToken(String token) {
-        try {
-            this.getClaims(token);
-            return true;
-        } catch (SecurityException | MalformedJwtException e) {
-            logger.info("잘못된 JWT 서명");
-        } catch (ExpiredJwtException e) {
-            logger.info("만료된 JWT");
-        } catch (UnsupportedJwtException e) {
-            logger.info("지원하지 않는 JWT");
-        } catch (IllegalArgumentException e) {
-            logger.info("잘못된 JWT");
-        }
-        return false;
+            .setSigningKey(key)
+            .build()
+            .parseClaimsJws(token)
+            .getBody();
     }
 }
