@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRequest {
+public class AccountRequest {
 
     @NotNull
     @Size(min = 3, max = 50)
@@ -21,8 +21,4 @@ public class UserRequest {
     @NotNull
     @Size(min = 3, max = 100)
     private String password;
-
-    @NotNull
-    @Size(min = 3, max = 50)
-    private String nickname;
 }

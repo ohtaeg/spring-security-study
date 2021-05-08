@@ -7,13 +7,13 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity // 데이터베이스의 테이블과 1:1 매핑되는 객체
-@Table(name = "user") // 테이블 명을 user로 지정
+@Table(name = "account") // 테이블 명을 user로 지정
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Account {
 
     @JsonIgnore
     @Id
@@ -28,8 +28,7 @@ public class User {
     @Column(name = "password", length = 100)
     private String password;
 
-    @Column(name = "nickname", length = 10)
-    private String nickname;
+    private String role;
 
     @JsonIgnore // 서버에서 Json 응답을 생성할때 해당 필드는 ignore 하겠다는 의미
     @Column(name = "activated")

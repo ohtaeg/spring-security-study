@@ -1,4 +1,5 @@
-INSERT INTO USER (id, name, password, nickname, activated) VALUES (1, 'admin', '$2a$08$lDnHPz7eUkSi6ao14Twuau08mzhWrL4kyZGGU5xfiGALO/Vxd5DOi', 'admin', 1);
+INSERT INTO ACCOUNT (id, name, password, activated)
+VALUES (1, 'admin', '$2a$08$lDnHPz7eUkSi6ao14Twuau08mzhWrL4kyZGGU5xfiGALO/Vxd5DOi', 1);
 
 INSERT INTO AUTHORITY (authority_name) values ('ROLE_USER');
 INSERT INTO AUTHORITY (authority_name) values ('ROLE_ADMIN');

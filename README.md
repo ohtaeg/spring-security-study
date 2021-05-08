@@ -4,7 +4,7 @@
   - 토큰 유형중 하나인 JWT를 이해한다.
 
 ## Environment
-- Java 8
+- Java 11
 - SpringBoot 2.x
 - SpringSecurity 5.x  +  JWT
 
