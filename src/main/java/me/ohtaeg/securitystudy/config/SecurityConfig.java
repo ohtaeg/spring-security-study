@@ -76,11 +76,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests() // HttpServletRequest 를 사용하는 요청들에 대해 접근제한을 설정하겠다는 의미
-                .antMatchers("/apis/hello").permitAll() // "path" 에 대한 요청은 인증없이 접근을 허용하겠다는 의미
+                .antMatchers("/hello", "/hello/info").permitAll() // "path" 에 대한 요청은 인증없이 접근을 허용하겠다는 의미
+                .antMatchers("/hello/admin").hasRole("ADMIN")
                 // 로그인 api 와 회원가입 api 는 토큰이 없는 상태에서 요청이 들어오기 때문에 토큰 없이 접근을 허용
                 .antMatchers("/apis/authenticate").permitAll() // 로그인 api
                 .antMatchers(HttpMethod.POST, "/apis/users").permitAll() // 회원가입 api
-                .anyRequest().authenticated() // 나머지 요청들은 모두 인증하겠다는 의미
+                .anyRequest().authenticated() // 나머지 요청들은 모두 인증만 하면 접근을 가능하게 해준다는 의미
+
+                // 폼 로그인을 사용할 것이다.
+                .and()
+                .formLogin()
+
+                .and()
+                .httpBasic()
 
                 .and()
                 .apply(new JwtSecurityConfig(jwtProvider)) // 커스텀 필터 등록
