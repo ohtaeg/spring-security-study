@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity // 데이터베이스의 테이블과 1:1 매핑되는 객체
 @Table(name = "account") // 테이블 명을 user로 지정
@@ -45,4 +46,8 @@ public class Account {
             , inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")}
     )
     private Set<Authority> authorities;
+
+    public void encodePassword(PasswordEncoder passwordEncoder) {
+        this.password = passwordEncoder.encode(this.password);
+    }
 }

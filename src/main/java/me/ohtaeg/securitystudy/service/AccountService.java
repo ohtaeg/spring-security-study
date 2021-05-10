@@ -66,4 +66,9 @@ public class AccountService {
     public Optional<Account> getMyUserWithAuthorities() {
         return SecurityUtil.getCurrentUsername().flatMap(accountRepository::findOneWithAuthoritiesByUsername);
     }
+
+    public Account createNew(final Account account) {
+        account.encodePassword(passwordEncoder);
+        return accountRepository.save(account);
+    }
 }

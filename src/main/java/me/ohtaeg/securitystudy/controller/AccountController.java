@@ -7,6 +7,7 @@ import me.ohtaeg.securitystudy.service.AccountService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,5 +39,10 @@ public class AccountController {
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Account> getUserForAdmin(@PathVariable final String username) {
         return ResponseEntity.ok(accountService.getUserWithAuthorities(username).get());
+    }
+
+    @GetMapping("/{role}/{username}/{password}")
+    public Account createAccount(@ModelAttribute Account account) {
+        return accountService.createNew(account);
     }
 }
