@@ -38,9 +38,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     private User createUser(final String username, final Account account) {
-        if (!account.isActivated()) {
-            throw new RuntimeException(username + "이 활성화되어 있지 않습니다.");
-        }
+//        if (!account.isActivated()) {
+//            throw new RuntimeException(username + "이 활성화되어 있지 않습니다.");
+//        }
 
         List<GrantedAuthority> grantedAuthorities = account.getAuthorities()
                                                            .stream()

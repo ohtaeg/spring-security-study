@@ -1,6 +1,8 @@
 package me.ohtaeg.securitystudy.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.ArrayList;
+import java.util.HashSet;
 import lombok.*;
 
 import javax.persistence.*;
@@ -45,7 +47,7 @@ public class Account {
             , joinColumns = {@JoinColumn(name = "id", referencedColumnName = "id")}
             , inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")}
     )
-    private Set<Authority> authorities;
+    private Set<Authority> authorities = new HashSet<>();
 
     public void encodePassword(PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(this.password);

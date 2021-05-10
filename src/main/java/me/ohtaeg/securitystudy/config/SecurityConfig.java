@@ -46,7 +46,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .anyRequest().authenticated();
 
         http.formLogin();
-        http.httpBasic();
+        http.httpBasic(); // 헤더에 특정한 값을 넣어서 요청을 보내면 그 값을 서버가 받아 ( 헤더에 이런 값이 들어올거라는 약속이 되어있기에 )
+                          // 서버가 유저의 이름과 패스워드를 알아낼 수 있다.
+                          // 해당 방법은 위험하기때문에 HTTPS에서만 사용해야한다.
+                          // formLogin 도 사실 마찬가지
     }
 
     /**

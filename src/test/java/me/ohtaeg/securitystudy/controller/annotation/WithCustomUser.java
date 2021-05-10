@@ -1,4 +1,4 @@
-package me.ohtaeg.securitystudy.controller;
+package me.ohtaeg.securitystudy.controller.annotation;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
