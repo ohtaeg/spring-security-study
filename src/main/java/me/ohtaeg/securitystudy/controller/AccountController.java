@@ -41,7 +41,7 @@ public class AccountController {
         return ResponseEntity.ok(accountService.getUserWithAuthorities(username).get());
     }
 
-    @GetMapping("/{role}/{username}/{password}")
+    @GetMapping("/account/{role}/{username}/{password}")
     public Account createAccount(@ModelAttribute Account account) {
         return accountService.createNew(account);
     }
